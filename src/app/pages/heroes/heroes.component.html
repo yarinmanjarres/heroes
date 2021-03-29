@@ -1,0 +1,61 @@
+<header>
+    <div class="navbar navbar-dark bg-dark shadow-sm">
+      <div class="container d-flex justify-content-between">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" aria-hidden="true" class="mr-2" viewBox="0 0 24 24" focusable="false"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg>
+          <strong>Filtros Personalizados</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      </div>
+    </div>
+  </header>
+  
+  <section class="jumbotron text-center">
+    <div class="container form-inline">
+      <h1>{{'Album de Heroes' | titulo }}</h1>
+      <p class="lead text-muted"></p>
+      <hr>
+      <p>
+        <select class="form-control mx-sm-1 mb-2" [(ngModel)]="buscarpornombre" >
+          <option value="">Mostrar por Nombre</option>
+          <option value="{{opcion.name}}" *ngFor="let opcion of servicioHeroe.heroes | ordenarNombre ">{{opcion.name}}</option>
+         
+        </select>
+        <select class="form-control mx-sm-1 mb-2" [(ngModel)]="buscarporapariencia" >
+          <option value="">Mostrar por Apariencia</option>
+          <option value="{{apariencia.biography.alignment}}" *ngFor="let apariencia of servicioHeroe.heroes | ordenarApariencia | quitarRepetidos">{{apariencia.biography.alignment}}</option>
+        </select>
+      </p>
+    </div>
+  </section>
+  
+  <div class="album py-5 bg-light">
+    <div class="container">
+      <div class="row">      
+
+
+        <div class="card mb-3 espacio" style="max-width: 540px;" *ngFor="let heroe of servicioHeroe.heroes | burcarnombre:buscarpornombre|buscarApariencia:buscarporapariencia| ordenarNombre" >
+          <div class="row no-gutters">
+            <div class="col-md-4">
+              <img [src]="heroe.images.md" class="card-img" alt="...">
+            </div>
+            <div class="col-md-8">
+              <div class="card-body">
+                <h5 class="card-title"> {{heroe.name}}</h5>
+                <p class="card-text"> {{heroe.biography.firstAppearance}}</p>
+                <p class="card-text"><small class="text-muted">Apariencia: {{heroe.biography.alignment}}</small></p>
+                
+                <p></p>
+                <p><button type="button" [routerLink]="['/detalles',heroe.id]" class="btn btn-primary btn-sm">Detalles</button></p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+    
+      </div>
+    </div>
+  </div>
